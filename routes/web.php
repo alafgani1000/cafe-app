@@ -23,7 +23,13 @@ Route::get('auth/login',[LoginController::class,'index'])
 Route::post('auth/login',[LoginController::class,'store'])
     ->name('login-proccess');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(["middleware" => "auth"], function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::group(["prefix" => "employee"], function () {
+
+    });
+});
+
     
