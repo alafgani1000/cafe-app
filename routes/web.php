@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,8 @@ Route::group(["middleware" => "auth"], function () {
         return view('dashboard');
     })->name('dashboard');
     Route::group(["prefix" => "employee"], function () {
-
+        Route::get('/', [EmployeeController::class, 'index'])
+            ->name('employee.index');
     });
 });
 
