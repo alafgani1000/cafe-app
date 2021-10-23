@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use DataTables;
 
 class EmployeeController extends Controller
 {
@@ -32,9 +33,28 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'empJenisKelamin' => 'required'
-        ]);
+        $request->validate(
+            [
+                'empJnsKelamin' => 'required',
+                'empTglLahir' => 'required',
+                'empTmpLahir' => 'required',
+                'empAlamat' => 'required',
+                'empStatus' => 'required',
+                'empNik' => 'required',
+                'empEmail' => 'required',
+                'empName' => 'required'
+            ],
+            [
+                'empJnsKelamin.required' => 'The gender field is required',
+                'empTglLahir.required' => 'The date of birth field is required',
+                'empTmpLahir.required' => 'The place of birth lahir field is required',
+                'empAlamat.required' => 'The address field is required',
+                'empStatus.required' => 'The status field is required',
+                'empNik.required' => 'The nik field is required',
+                'empEmail.required' => 'The email field is required',
+                'empName.required' => 'The name field is required'
+            ]
+        );
 
         $employee = Employee::create([
             'name' => $request->empName,
@@ -46,6 +66,32 @@ class EmployeeController extends Controller
             'nik' => $request->empNik,
             'email' => $request->empEmail
         ]);
+
+        $emp = Employee::where('nik',$request->empNik)->first();
+        $empId = $this->createEmployeeId($emp->id);
+        $emp->employee_id = $empId;
+        $emp->save();
+
+        return response()->json([
+            "message" => "success"
+        ], 200);
+
+    }
+
+    public function data()
+    {
+        $model = Employee::query();
+        return DataTables::of($model)->toJson();
+    }
+
+    public function edit()
+    {
+        return view('employees.modal-edit');
+    }
+
+    public function update()
+    {
+
     }
 
 }

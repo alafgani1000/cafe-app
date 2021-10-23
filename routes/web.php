@@ -31,7 +31,17 @@ Route::group(["middleware" => "auth"], function () {
     Route::group(["prefix" => "employee"], function () {
         Route::get('/', [EmployeeController::class, 'index'])
             ->name('employee.index');
+        Route::post('/',[EmployeeController::class, 'store'])
+            ->name('employee.store');
+        Route::get('/data',[EmployeeController::class, 'data'])
+            ->name('employee.data');
+        Route::get('/data',[EmployeeController::class, 'edit'])
+            ->name('employee.edit');
+        Route::put('/{id}/update',[EmployeeController::class, 'update'])
+            ->name('employee.update');
+        Route::delete('/{id}/delete',[EmployeeController::class, 'delete'])
+            ->name('employee.delete');
+
     });
 });
 
-    

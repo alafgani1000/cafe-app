@@ -24,6 +24,7 @@
             }
         }
         </style>
+        <script src="{{ mix('js/app.js') }}"></script>
         <!-- Custom styles for this template -->
         <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
         <!-- Custom styles for this template -->
@@ -33,6 +34,7 @@
         <link rel="stylesheet" href="{{ asset('css/headers.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navbar-top-fixed.css') }}">
         <link res="stylesheet" href="{{ asset('fa/css/all.min.css') }}">
+        <link res="stylesheet" href="{{ asset('DataTables/datatables.css') }}">
         <style>
             .header-color {
                 background-color: #FB743E;
@@ -53,7 +55,21 @@
             body {
                 font-family: 'Open Sans', sans-serif;
             }
+
+            .help-validate {
+                color: red;
+                font-size: 14px;
+            }
+
+            #isi {
+                font-size:12px !important;
+            }
         </style>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
     </head>
     <body class="body-bg-color">
         <nav class="container">
@@ -139,7 +155,7 @@
             </header>
         </nav>
 
-        <main class="container">
+        <main class="container" id="isi">
           @yield('content')
         </main>
 
@@ -147,8 +163,9 @@
         <footer class="blog-footer" style="margin-top:10px">
             <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
         </footer>
-        <script src="{{ mix('js/app.js') }}"></script>
         <script src="{{ asset('fa/js/all.min.js') }}"></script>
+        <script src="{{ asset('DataTables/datatables.js') }}"></script>
+        <script src="{{ asset('bootbox/bootbox.all.min.js') }}"></script>
     </body>
 
 </html>
