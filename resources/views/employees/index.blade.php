@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header card-header-color text-white">
-                    Employee
+                    <span class="header-data">Employee</span>
                     <div class="btn-group float-end">
                         {{-- <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#emp-modal-create"><i class="fas fa-plus-square me-1"></i> Add</button> --}}
                         <button class="btn btn-sm btn-light" id="addBtn"><i class="fas fa-plus-square me-1"></i> Add</button>
@@ -39,12 +39,11 @@
     @include('employees.modal-create')
 
     <div id="containerModalUpdate">
-
     </div>
-
+    @push('scripts')
     <script>
         $(function() {
-            var dataEmp = $("#dataEmployee").DataTable({
+            dataEmp = $("#dataEmployee").DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": "{{ route('employee.data') }}",
@@ -65,7 +64,7 @@
                     { "data": "tempat_lahir" },
                     { "data": "tanggal_lahir" },
                     { "data": "id", render:function(data, type, row, meta) {
-                        return '<div class="btn-group"><button empid='.id.' class="btn btn-warning btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" id="empEdit"><i class="fas fa-edit text-white"></i></button><button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-trash text-white"></i></button></div>';
+                        return '<div class="btn-group"><button empid="'+data+'" class="btn btn-warning btn-sm emp-btn-edit" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit text-white"></i></button><button class="btn btn-danger btn-sm emp-btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" empid="'+data+'"><i class="fas fa-trash text-white"></i></button></div>';
                     }}
                 ]
             });
@@ -75,13 +74,15 @@
             $(".dt-buttons").addClass('float-start mb-0 pb-0');
 
             var empCreateModal = new bootstrap.Modal(document.getElementById('emp-modal-create'), {});
-            var empUpdateModal = new bootstrap.Modal(document.getElementById('emp-modal-update'), {});
 
-            $("#empEdit").on("click", function (event) {
+            $("#dataEmployee").on("click",".emp-btn-edit", function (event) {
+                let empId = $(this).attr("empid");
+                let url = '{{ route("employee.edit", ":empId") }}';
+                url = url.replace(':empId', empId);
                 $.ajax({
                     type: "get",
-                    url: "{{ route('employee.edit') }}",
-                    data: "data"
+                    url:url,
+                    dataType:'html'
                 }).done(function (response) {
                     $("#containerModalUpdate").html(response);
                     empUpdateModal.show();
@@ -90,7 +91,50 @@
                 });
             });
 
-            const Toast = Swal.mixin({
+            $("#dataEmployee").on("click",".emp-btn-delete", function (event) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete',
+                    preConfirm: () => {
+                        let empId = $(this).attr("empid");
+                        let url = '{{ route("employee.delete", ":empId") }}';
+                        url = url.replace(':empId', empId);
+                        $.ajax({
+                            type: "delete",
+                            url: url,
+                            data: "data",
+                            dataType: "json",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        }).done(function (response) {
+                            dataEmp.ajax.reload();
+                        }).fail(function (response) {
+                            Toast.fire({
+                                icon: 'error',
+                                title: "Delete failed"
+                            })
+                        });
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                        'Deleted!',
+                        'Employee data has been deleted.',
+                        'success'
+                        )
+                    }
+                })
+
+            });
+
+            Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
@@ -116,7 +160,7 @@
                     data: data,
                 }).done(function(response){
                     empCreateModal.hide();
-
+                    dataEmp.ajax.reload();
                     Toast.fire({
                         icon: 'success',
                         title: response.message
@@ -135,4 +179,5 @@
             });
         })
     </script>
+    @endpush
 @endsection

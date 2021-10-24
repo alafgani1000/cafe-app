@@ -84,14 +84,60 @@ class EmployeeController extends Controller
         return DataTables::of($model)->toJson();
     }
 
-    public function edit()
+    public function edit(Request $request, $id)
     {
-        return view('employees.modal-edit');
+        $employee = Employee::find($id);
+        return view('employees.modal-edit', compact('employee'));
     }
 
-    public function update()
+    public function update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'empJnsKelaminEdit' => 'required',
+                'empTglLahirEdit' => 'required',
+                'empTmpLahirEdit' => 'required',
+                'empAlamatEdit' => 'required',
+                'empStatusEdit' => 'required',
+                'empNikEdit' => 'required',
+                'empEmailEdit' => 'required',
+                'empNameEdit' => 'required'
+            ],
+            [
+                'empJnsKelaminEdit.required' => 'The gender field is required',
+                'empTglLahirEdit.required' => 'The date of birth field is required',
+                'empTmpLahirEdit.required' => 'The place of birth lahir field is required',
+                'empAlamatEdit.required' => 'The address field is required',
+                'empStatusEdit.required' => 'The status field is required',
+                'empNikEdit.required' => 'The nik field is required',
+                'empEmailEdit.required' => 'The email field is required',
+                'empNameEdit.required' => 'The name field is required'
+            ]
+        );
 
+        $employee = Employee::where('id',$id)->update([
+            'name' => $request->empNameEdit,
+            'jenis_kelamin' => $request->empJnsKelaminEdit,
+            'tempat_lahir' => $request->empTmpLahirEdit,
+            'tanggal_lahir' => $request->empTglLahirEdit,
+            'alamat' => $request->empAlamatEdit,
+            'status' => $request->empStatusEdit,
+            'nik' => $request->empNikEdit,
+            'email' => $request->empEmailEdit
+        ]);
+
+        return response()->json([
+            "message" => "success"
+        ], 200);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $delete = Employee::find($id);
+        $delete->delete();
+        return response()->json([
+            "message" => "Delete success"
+        ], 200);
     }
 
 }

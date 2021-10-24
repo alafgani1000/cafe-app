@@ -61,15 +61,15 @@
                 font-size: 14px;
             }
 
+            .header-data {
+                font-size: 16px;
+            }
+
             #isi {
                 font-size:12px !important;
             }
         </style>
-        <script>
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
-        </script>
+        @stack('scripts')
     </head>
     <body class="body-bg-color">
         <nav class="container">

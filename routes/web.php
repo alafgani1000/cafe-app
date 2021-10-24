@@ -35,7 +35,7 @@ Route::group(["middleware" => "auth"], function () {
             ->name('employee.store');
         Route::get('/data',[EmployeeController::class, 'data'])
             ->name('employee.data');
-        Route::get('/data',[EmployeeController::class, 'edit'])
+        Route::get('/{id}/edit',[EmployeeController::class, 'edit'])
             ->name('employee.edit');
         Route::put('/{id}/update',[EmployeeController::class, 'update'])
             ->name('employee.update');
