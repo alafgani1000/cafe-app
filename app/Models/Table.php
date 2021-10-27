@@ -9,4 +9,6 @@ class Table extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nomor_meja','status'];
+
 }
