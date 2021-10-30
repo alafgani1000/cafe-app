@@ -10,7 +10,7 @@ class CafeController extends Controller
 {
     public function index()
     {
-        return view('cafes.index');
+        return view('profiles.index');
     }
 
     public function data()
@@ -41,21 +41,28 @@ class CafeController extends Controller
     public function edit(Request $request, $id)
     {
         $cafe = Cafe::find($id);
-        return view('cafes.modal-edit', compact('cafe'));
+        return view('profiles.modal-edit', compact('cafe'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'tagline' => 'required',
-            'address' => 'required'
-        ]);
+        $request->validate(
+            [
+                'ename' => 'required',
+                'etagline' => 'required',
+                'eaddress' => 'required'
+            ],
+            [
+                'ename.required' => 'The name field is required',
+                'etagline.required' => 'The tagline field is required',
+                'eaddress.required' => 'The address field is required'
+            ]
+        );
 
         $update = Cafe::where('id',$id)->update([
-            'nama' => $request->name,
-            'tagline' => $request->tagline,
-            'alamat' => $request->address
+            'nama' => $request->ename,
+            'tagline' => $request->etagline,
+            'alamat' => $request->eaddress
         ]);
 
         return response()->json([
@@ -65,7 +72,8 @@ class CafeController extends Controller
 
     public function delete($id)
     {
-        $delete = Cafe::where('id',$id)->destroy();
+        $cafe = Cafe::where('id',$id)->first();
+        $cafe->delete();
         return response()->json([
             'message' => 'success'
         ]);

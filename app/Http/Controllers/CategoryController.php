@@ -25,7 +25,7 @@ class CategoryController extends Controller
         return view('categories.modal-edit', compact('category'));
     }
 
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required'
@@ -42,12 +42,17 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
+        $request->validate(
+            [
+                'ename' => 'required'
+            ],
+            [
+                'ename.required' => 'The name field is required'
+            ]
+        );
 
         $update = Category::where('id',$id)->update([
-            'name' => $request->name
+            'name' => $request->ename
         ]);
 
         return response()->json([

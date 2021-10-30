@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -10,12 +11,13 @@ class MenuController extends Controller
 {
     public function index()
     {
-        return view('menus.index');
+        $categories = Category::all();
+        return view('menus.index', compact('categories'));
     }
 
     public function data()
     {
-        $menus = Menu::query();
+        $menus = Menu::with('category')->with('status');
         return DataTables::of($menus)->toJson();
     }
 
@@ -25,8 +27,8 @@ class MenuController extends Controller
             'category' => 'required',
             'name' => 'required',
             'status' => 'required',
-            'price' => 'required',
-            'price_inital' => 'required',
+            'price' => 'required|numeric',
+            'priceInitial' => 'required',
             'discount' => 'required'
         ]);
 
@@ -35,7 +37,7 @@ class MenuController extends Controller
             'name' => $request->name,
             'status' => $request->status,
             'price' => $request->price,
-            'price_initial' => $request->price_initial,
+            'price_initial' => $request->priceInitial,
             'discount' => $request->discount
         ]);
 
@@ -47,29 +49,39 @@ class MenuController extends Controller
     public function edit(Request $request, $id)
     {
         $menu = Menu::find($id);
-        return view('menus.modal-update', compact('menu'));
+        $categories = Category::all();
+        return view('menus.modal-update', compact('menu','categories'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'category' => 'required',
-            'name' => 'required',
-            'status' => 'required',
-            'price' => 'required',
-            'price_inital' => 'required',
-            'discount' => 'required'
+            'ecategory' => 'required',
+            'ename' => 'required',
+            'estatus' => 'required',
+            'eprice' => 'required|numeric',
+            'epriceInitial' => 'required',
+            'ediscount' => 'required'
         ]);
 
         $update = Menu::where('id',$id)->update([
-            'category_id' => $request->category,
-            'name' => $request->name,
-            'status' => $request->status,
-            'price' => $request->price,
-            'price_initial' => $request->price_initial,
-            'discount' => $request->discount
+            'category_id' => $request->ecategory,
+            'name' => $request->ename,
+            'status' => $request->estatus,
+            'price' => $request->eprice,
+            'price_initial' => $request->epriceInitial,
+            'discount' => $request->ediscount
         ]);
 
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $menu = Menu::find($id);
+        $menu->delete();
         return response()->json([
             'message' => 'success'
         ]);

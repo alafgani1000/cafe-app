@@ -65,8 +65,8 @@
                 font-size: 16px;
             }
 
-            #isi {
-                font-size:12px !important;
+            .isi {
+                font-size:14px !important;
             }
         </style>
         @stack('scripts')
@@ -127,9 +127,9 @@
                                         Master Data
                                     </a>
                                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                                    <li><a class="dropdown-item active" href="#" aria-current="page">Categories</a></li>
-                                    <li><a class="dropdown-item" href="#">Menu</a></li>
-                                    <li><a class="dropdown-item" href="#">Profile Cafe</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('category.index') }}" aria-current="page">Categories</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('cafe.index') }}">Profile Cafe</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -155,13 +155,13 @@
             </header>
         </nav>
 
-        <main class="container" id="isi">
+        <main class="container">
           @yield('content')
         </main>
 
 
-        <footer class="blog-footer" style="margin-top:10px">
-            <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+        <footer class="container" style="margin-top:10px">
+            <p>Created by <a href="https://selaicoding.com">selaicoding.com</a> Template by <a href="https://twitter.com/mdo">@mdo</a> Bootstrap.</p>
         </footer>
         <script src="{{ asset('fa/js/all.min.js') }}"></script>
         <script src="{{ asset('DataTables/datatables.js') }}"></script>

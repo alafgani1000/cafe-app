@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
+    <div class="row isi">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header card-header-color text-white">

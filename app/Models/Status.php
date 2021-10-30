@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 
-class Category extends Model
+class Status extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,6 @@ class Category extends Model
 
     public function menu()
     {
-        return $this->hasOne(Menu::class);
+        return $this->hasMany(Menu::class);
     }
 }

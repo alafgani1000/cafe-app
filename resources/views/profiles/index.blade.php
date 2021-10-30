@@ -5,21 +5,18 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header card-header-color text-white">
-                    <span class="header-data">Category</span>
+                    <span class="header-data">Profile</span>
                     <div class="btn-group float-end">
                         <button class="btn btn-sm btn-light" id="addBtn"><i class="fas fa-plus-square me-1"></i> Add</button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered" width="100%" id="dataMenu">
+                    <table class="table table-bordered" width="100%" id="dataProfile">
                         <thead>
                             <tr>
-                                <th>Menu</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Initial</th>
-                                <th>Discount</th>
-                                <th>Status</th>
+                                <th>Name</th>
+                                <th>Tagline</th>
+                                <th>Alamat</th>
                                 <th width="15%">Action</th>
                             </tr>
                         </thead>
@@ -33,15 +30,15 @@
     </div>
 
     {{-- modal --}}
-    @include('menus.modal-create')
+    @include('profiles.modal-create')
 
-    <div id="menuModalContainer">
+    <div id="profileModalContainer">
 
     </div>
     {{-- end modal --}}
     <script>
         $(function(){
-            menuCreateModal = new bootstrap.Modal(document.getElementById('modal-menu-create'),{});
+            profileCreateModal = new bootstrap.Modal(document.getElementById('modal-profile-create'),{});
 
             Toast = Swal.mixin({
                 toast: true,
@@ -55,14 +52,21 @@
                 }
             });
 
+            function resetHelp() {
+                $('#helpName').text('');
+                $('#helpTagline').text('');
+                $('#helpAddress').text('');
+            }
+
             $('#addBtn').on('click', function(event){
-                menuCreateModal.show();
+                profileCreateModal.show();
+                resetHelp();
             });
 
-            dataMenu = $('#dataMenu').DataTable({
+            dataProfile = $('#dataProfile').DataTable({
                 'processing':true,
                 'serverSide':true,
-                'ajax':'{{ route("menu.data") }}',
+                'ajax':'{{ route("cafe.data") }}',
                 'dom':'Bfrtip',
                 'buttons': [
                     'copy', 'csv', 'excel', 'pdf', 'print','pageLength'
@@ -71,29 +75,20 @@
                     [10, 25, 50, -1], [10, 25, 50, 'All']
                 ],
                 'columns':[
-                    {'data':'name'},
-                    {'data':'category.name'},
-                    {'data':'price'},
-                    {'data':'price_initial'},
-                    {'data':'discount'},
-                    {'data':'status', render:function(data){
-                        if(data.id === 1) {
-                            return '<span class="badge bg-success">'+ data.name +'</span>';
-                        }else if(data.id === 2) {
-                            return '<span class="badge bg-danger">'+ data.name +'</span>';
-                        }
-                    }},
+                    {'data':'nama'},
+                    {'data':'tagline'},
+                    {'data':'alamat'},
                     {'data':'id', render:function(data){
-                        return '<div class="btn-group"><button dataid="'+data+'" class="btn btn-warning btn-sm menu-btn-edit"><i class="fas fa-edit"></i></button ><button dataid="'+data+'" class="btn btn-danger btn-sm menu-btn-delete"><i class="fas fa-trash"></i></button></div>'
+                        return '<div class="btn-group"><button dataid="'+data+'" class="btn btn-warning btn-sm profile-btn-edit"><i class="fas fa-edit"></i></button ><button dataid="'+data+'" class="btn btn-danger btn-sm profile-btn-delete"><i class="fas fa-trash"></i></button></div>'
                     }}
                 ]
             })
 
-            $("#dataMenu_filter").addClass('float-end mb-2');
+            $("#dataProfile_filter").addClass('float-end mb-2');
             $(".dt-buttons").css("margin-bottom","0 !important")
             $(".dt-buttons").addClass('float-start mb-0 pb-0');
 
-            $('#menuCreate').on('submit', function(event) {
+            $('#profileCreate').on('submit', function(event) {
                 event.preventDefault();
                 event.stopPropagation();
                 let url = $(this).attr('action');
@@ -107,37 +102,35 @@
                         icon: 'success',
                         title: res.message
                     });
-                    menuCreateModal.hide();
-                    dataMenu.ajax.reload();
+                    profileCreateModal.hide();
+                    dataProfile.ajax.reload();
                 }).fail(function(res){
                     let errors = res.responseJSON.errors;
+                    $('#helpName').text(errors.name);
+                    $('#helpTagline').text(errors.tagline);
+                    $('#helpAddress').text(errors.address);
                     Toast.fire({
                         icon: 'error',
-                        title: 'Input Failed'
-                    })
-                    $('#helpName').text(errors.name);
-                    $('#helpPrice').text(errors.price);
-                    $('#helpPriceInitial').text(errors.priceInitial);
-                    $('#helpStatus').text(errors.status);
-                    $('#helpDiscount').text(errors.discount);
+                        title: 'Input failed'
+                    });
                 });
             });
 
-            $('#dataMenu').on('click','.menu-btn-edit', function(event){
+            $('#dataProfile').on('click','.profile-btn-edit', function(event){
                 let dataId = $(this).attr('dataid');
-                let url = '{{ route("menu.edit", ":dataId") }}';
+                let url = '{{ route("cafe.edit", ":dataId") }}';
                 url = url.replace(':dataId', dataId);
                 $.ajax({
                     type: 'GET',
                     url: url,
                     dataType: 'html'
                 }).done(function(res){
-                    $('#menuModalContainer').html(res);
-                    menuUpdateModal.show();
+                    $('#profileModalContainer').html(res);
+                    profileEditModal.show();
                 });
             });
 
-            $("#dataMenu").on("click",".menu-btn-delete", function (event) {
+            $("#dataProfile").on("click",".profile-btn-delete", function (event) {
                 Swal.fire({
                     title: 'Are you sure?',
                     icon: 'warning',
@@ -147,7 +140,7 @@
                     confirmButtonText: 'Delete',
                     preConfirm: () => {
                         let dataId = $(this).attr("dataid");
-                        let url = '{{ route("menu.delete", ":dataId") }}';
+                        let url = '{{ route("cafe.delete", ":dataId") }}';
                         url = url.replace(':dataId', dataId);
                         $.ajax({
                             type: "delete",
@@ -158,7 +151,7 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             }
                         }).done(function (response) {
-                            dataMenu.ajax.reload();
+                            dataProfile.ajax.reload();
                         }).fail(function (response) {
                             Toast.fire({
                                 icon: 'error',
@@ -171,7 +164,7 @@
                     if (result.isConfirmed) {
                         Swal.fire(
                         'Deleted!',
-                        'Category data has been deleted.',
+                        'Profile data has been deleted.',
                         'success'
                         )
                     }
