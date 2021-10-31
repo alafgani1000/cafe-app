@@ -129,6 +129,7 @@
                                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
                                     <li><a class="dropdown-item" href="{{ route('category.index') }}" aria-current="page">Categories</a></li>
                                     <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('table.index') }}">Room or Table</a></li>
                                     <li><a class="dropdown-item" href="{{ route('cafe.index') }}">Profile Cafe</a></li>
                                     </ul>
                                 </div>

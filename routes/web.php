@@ -6,6 +6,7 @@ use App\Http\Controllers\CafeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\TableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +91,21 @@ Route::group(["middleware" => "auth"], function () {
             ->name('menu.update');
         Route::delete('/{id}/delete',[MenuController::class, 'delete'])
             ->name('menu.delete');
+    });
+
+    Route::group(['prefix' => 'table'], function() {
+        Route::get('/',[TableController::class, 'index'])
+            ->name('table.index');
+        Route::get('/data',[TableController::class, 'data'])
+            ->name('table.data');
+        Route::post('/',[TableController::class, 'store'])
+            ->name('table.store');
+        Route::get('/{id}/edit',[TableController::class, 'edit'])
+            ->name('table.edit');
+        Route::put('/{id}/update',[TableController::class, 'update'])
+            ->name('table.update');
+        Route::delete('/{id}/delete',[TableController::class, 'delete'])
+            ->name('table.delete');
     });
 });
 
