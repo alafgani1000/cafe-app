@@ -32,13 +32,20 @@ class MenuController extends Controller
             'discount' => 'required'
         ]);
 
+        $name = $request->file('image')->getClientOriginalName();
+        $ext = $request->file('image')->extension();
+        $name = uniqid();
+        $imageName = $name.$ext;
+        $path = $request->file('image')->storeAs('public', $imageName);
         $create = Menu::create([
             'category_id' => $request->category,
             'name' => $request->name,
             'status' => $request->status,
             'price' => $request->price,
             'price_initial' => $request->priceInitial,
-            'discount' => $request->discount
+            'discount' => $request->discount,
+            'image' => $name,
+            'image_path' => $path
         ]);
 
         return response()->json([

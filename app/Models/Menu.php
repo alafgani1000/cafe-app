@@ -11,7 +11,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id','name','status','price','price_initial','discount'];
+    protected $fillable = ['category_id','name','status','price','price_initial','discount','image','image_path'];
 
     public function category()
     {

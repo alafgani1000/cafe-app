@@ -19,6 +19,7 @@
                                 <th>Price</th>
                                 <th>Initial</th>
                                 <th>Discount</th>
+                                <th>Image</th>
                                 <th>Status</th>
                                 <th width="15%">Action</th>
                             </tr>
@@ -76,6 +77,9 @@
                     {'data':'price'},
                     {'data':'price_initial'},
                     {'data':'discount'},
+                    {'data':nul, render:function(data){
+                        return '<a href="{{ url('image_path') }}" >'+data.image+'</a>';
+                    }},
                     {'data':'status', render:function(data){
                         if(data.id === 1) {
                             return '<span class="badge bg-success">'+ data.name +'</span>';
@@ -97,11 +101,14 @@
                 event.preventDefault();
                 event.stopPropagation();
                 let url = $(this).attr('action');
-                let data = $(this).serialize();
+                // let data = $(this).serialize();
+                let data = new FormData($('#menuCreate')[0]);
                 $.ajax({
                     type: 'post',
                     url: url,
-                    data: data
+                    data: data,
+                    processData: false,
+                    contentType: false,
                 }).done(function(res){
                     Toast.fire({
                         icon: 'success',

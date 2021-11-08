@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('menu.store') }}" id="menuCreate" class="row g-3">
+                <form method="post" action="{{ route('menu.store') }}" id="menuCreate" class="row g-3" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6">
                         <label for="category" class="form-label">Category</label>
@@ -47,6 +47,13 @@
                         <label for="discount" class="form-label">Discount</label>
                         <input type="text" class="form-control" name="discount" id="discount">
                         <div id="helpDiscount" class="help-validate">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" name="image" id="image">
+                        <div id="helpImage" class="help-validate">
+
                         </div>
                     </div>
                 </form>
