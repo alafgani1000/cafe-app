@@ -68,6 +68,10 @@
             .isi {
                 font-size:14px !important;
             }
+
+            .padding-menu {
+                margin-top: 20px;
+            }
         </style>
         @stack('scripts')
     </head>
@@ -81,59 +85,82 @@
                         <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
                         </a>
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                            <li>
-                                <a href="#" class="nav-link text-white">
-                                <i class="fas fa-tachometer-alt bi d-block mx-auto mb-1"></i>
-                                Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <div class="dropdown">
-                                    <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                    <i class="fas fa-file-alt bi d-block mx-auto mb-1"></i>
-                                        Reports
+                            @role('pramuniaga')
+                                <li>
+                                    <a href="{{ route('home') }}" class="nav-link text-white">
+                                        <i class="fas fa-home bi d-block mx-auto mb-1"></i>
+                                        Home
                                     </a>
-                                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                                    <li><a class="dropdown-item" href="#" aria-current="page">Categories</a></li>
-                                    <li><a class="dropdown-item" href="#">Menu</a></li>
-                                    <li><a class="dropdown-item" href="#">Profile Cafe</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link text-white">
-                                <i class="fas fa-money-bill bi d-block mx-auto mb-1"></i>
-                                Payments
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link text-white">
-                                <i class="fas fa-shopping-basket bi d-block mx-auto mb-1"></i>
-                                Orders
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('employee.index') }}" class="nav-link text-white">
-                                <i class="fas fa-users bi d-block mx-auto mb-1"></i>
-                                Employees
-                                </a>
-                            </li>
-                            <li>
-                                <div class="dropdown">
-                                    <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                    <i class="fab fa-elementor bi d-block mx-auto mb-1"></i>
-                                        Master Data
+                                </li>
+                                <li>
+                                    <a href="{{ route('makanan') }}" class="nav-link text-white">
+                                        <i class="fas fa-utensils bi d-block mx-auto mb-1"></i>
+                                        Makanan
                                     </a>
-                                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                                    <li><a class="dropdown-item" href="{{ route('category.index') }}" aria-current="page">Categories</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('table.index') }}">Room or Table</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('cafe.index') }}">Profile Cafe</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link text-white">
+                                        <i class="fas fa-beer bi d-block mx-auto mb-1"></i>
+                                        Minuman
+                                    </a>
+                                </li>
+                            @endrole
+
+                            @role('admin')
+                                <li>
+                                    <a href="#" class="nav-link text-white">
+                                    <i class="fas fa-tachometer-alt bi d-block mx-auto mb-1"></i>
+                                    Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown">
+                                        <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <i class="fas fa-file-alt bi d-block mx-auto mb-1"></i>
+                                            Reports
+                                        </a>
+                                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                                        <li><a class="dropdown-item" href="#" aria-current="page">Categories</a></li>
+                                        <li><a class="dropdown-item" href="#">Menu</a></li>
+                                        <li><a class="dropdown-item" href="#">Profile Cafe</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link text-white">
+                                    <i class="fas fa-money-bill bi d-block mx-auto mb-1"></i>
+                                    Payments
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link text-white">
+                                    <i class="fas fa-shopping-basket bi d-block mx-auto mb-1"></i>
+                                    Orders
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('employee.index') }}" class="nav-link text-white">
+                                    <i class="fas fa-users bi d-block mx-auto mb-1"></i>
+                                    Employees
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown">
+                                        <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                        <i class="fab fa-elementor bi d-block mx-auto mb-1"></i>
+                                            Master Data
+                                        </a>
+                                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
+                                        <li><a class="dropdown-item" href="{{ route('category.index') }}" aria-current="page">Categories</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('table.index') }}">Room or Table</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('cafe.index') }}">Profile Cafe</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endrole
                             <li>
                                 <div class="dropdown">
                                     <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -142,10 +169,13 @@
                                         {{ Str::ucfirst(Auth::user()->name) }}
                                     </a>
                                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                                    <li><a class="dropdown-item active" href="#" aria-current="page">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Data User</a></li>
+                                        <li><a class="dropdown-item active" href="#" aria-current="page">Profile</a></li>
+                                        <li>
+                                            <form method="POST" action="{{ route('logout-process') }}">
+                                                @csrf
+                                                <button type="submit" class="dropdown-item" id="logout">Logout</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -164,6 +194,9 @@
         <footer class="container" style="margin-top:10px">
             <p>Created by <a href="https://selaicoding.com">selaicoding.com</a> Template by <a href="https://twitter.com/mdo">@mdo</a> Bootstrap.</p>
         </footer>
+        <script>
+
+        </script>
         <script src="{{ asset('fa/js/all.min.js') }}"></script>
         <script src="{{ asset('DataTables/datatables.js') }}"></script>
         <script src="{{ asset('bootbox/bootbox.all.min.js') }}"></script>

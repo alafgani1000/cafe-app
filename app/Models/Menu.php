@@ -22,4 +22,9 @@ class Menu extends Model
     {
         return $this->belongsTo(Status::class,'status');
     }
+
+    public function scopeMakanan($query)
+    {
+        return $query->where('category_id',4);
+    }
 }

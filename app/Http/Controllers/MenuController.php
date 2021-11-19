@@ -32,10 +32,11 @@ class MenuController extends Controller
             'discount' => 'required'
         ]);
 
-        $name = $request->file('image')->getClientOriginalName();
+        $oriName = $request->file('image')->getClientOriginalName();
         $ext = $request->file('image')->extension();
         $name = uniqid();
-        $imageName = $name.$ext;
+
+        $imageName = $name.'.'.$ext;
         $path = $request->file('image')->storeAs('public', $imageName);
         $create = Menu::create([
             'category_id' => $request->category,
@@ -44,8 +45,8 @@ class MenuController extends Controller
             'price' => $request->price,
             'price_initial' => $request->priceInitial,
             'discount' => $request->discount,
-            'image' => $name,
-            'image_path' => $path
+            'image' => $oriName,
+            'image_path' => $imageName
         ]);
 
         return response()->json([
@@ -92,5 +93,11 @@ class MenuController extends Controller
         return response()->json([
             'message' => 'success'
         ]);
+    }
+
+    public function listMakanan()
+    {
+        $foods = Menu::makanan()->get();
+        return view('menus.list-makanan', compact('foods'));
     }
 }

@@ -69,10 +69,8 @@ class CreateCafesTable extends Migration
 
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('table_id');
             $table->integer('reservation_id');
-            $table->integer('menu_id');
-            $table->integer('jumlah');
+            $table->integer('total_price');
             $table->string('description');
             $table->timestamps();
         });

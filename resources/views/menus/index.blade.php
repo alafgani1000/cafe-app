@@ -44,6 +44,14 @@
         $(function(){
             menuCreateModal = new bootstrap.Modal(document.getElementById('modal-menu-create'),{});
 
+            function resetForm()
+            {
+                $('#name').val('');
+                $('#price').val('');
+                $('#priceInitial').val('');
+                $('#discount').val('');
+            }
+
             Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -58,6 +66,7 @@
 
             $('#addBtn').on('click', function(event){
                 menuCreateModal.show();
+                resetForm();
             });
 
             dataMenu = $('#dataMenu').DataTable({
@@ -77,8 +86,11 @@
                     {'data':'price'},
                     {'data':'price_initial'},
                     {'data':'discount'},
-                    {'data':nul, render:function(data){
-                        return '<a href="{{ url('image_path') }}" >'+data.image+'</a>';
+                    {'data':null, render:function(data){
+                        let imagUrl = data.image_path;
+                        let url = '{{ url("storage/:imagUrl") }}';
+                        url = url.replace(':imagUrl', imagUrl);
+                        return '<a href='+url+' >'+data.image+'</a>';
                     }},
                     {'data':'status', render:function(data){
                         if(data.id === 1) {

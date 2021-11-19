@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,33 @@ Route::post('auth/login',[LoginController::class,'store'])
     ->name('login-proccess');
 
 Route::group(["middleware" => "auth"], function () {
-    Route::get('/dashboard', function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+
+    Route::get('/dashboard',function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::post('auth/logout',[LoginController::class,'logout'])
+        ->name('logout-process');
+
+    Route::group(['middleware' => ['web']], function() {
+        Route::group(['middleware' => ['role:pramuniaga']], function() {
+            Route::get('/menu/makanan',[MenuController::class, 'listMakanan'])
+                ->name('makanan');
+            Route::post('/menu/order',[TransactionController::class, 'order'])
+                ->name('order');
+            Route::get('/menu/data-order',[TransactionController::class, 'getOrder'])
+                ->name('data-order');
+            Route::get('menu/count-order',[TransactionController::class, 'getCountOrder'])
+                ->name('count-order');
+        });
+    });
+
+
     Route::group(["prefix" => "employee"], function () {
-        Route::get('/', [EmployeeController::class, 'index'])
+        Route::get('/',[EmployeeController::class, 'index'])
             ->name('employee.index');
         Route::post('/',[EmployeeController::class, 'store'])
             ->name('employee.store');

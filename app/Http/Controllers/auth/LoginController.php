@@ -23,7 +23,7 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        
+
         if(Auth::attempt($crendetials)) {
             $request->session()->regenerate();
             return redirect()->intended(RouteServiceProvider::HOME);
@@ -37,6 +37,17 @@ class LoginController extends Controller
      public function index()
      {
          return view('auth.login');
+     }
+
+     public function logout(Request $request)
+     {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
      }
 
      public function signIn(Request $request)
