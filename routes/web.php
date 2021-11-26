@@ -45,12 +45,22 @@ Route::group(["middleware" => "auth"], function () {
         Route::group(['middleware' => ['role:pramuniaga']], function() {
             Route::get('/menu/makanan',[MenuController::class, 'listMakanan'])
                 ->name('makanan');
+            Route::get('/menu/minuman',[MenuController::class, 'listMinuman'])
+                ->name('minuman');
             Route::post('/menu/order',[TransactionController::class, 'order'])
                 ->name('order');
             Route::get('/menu/data-order',[TransactionController::class, 'getOrder'])
                 ->name('data-order');
             Route::get('menu/count-order',[TransactionController::class, 'getCountOrder'])
                 ->name('count-order');
+            Route::post('menu/delete-order',[TransactionController::class, 'deleteOrder'])
+                ->name('delete-order');
+            Route::post('menu/update-order',[TransactionController::class, 'updateOrder'])
+                ->name('update-order');
+            Route::get('menu/view-cart',[TransactionController::class, 'indexOrder'])
+                ->name('index-order');
+            Route::post('menu/save-order',[TransactionController::class, 'saveOrder'])
+                ->name('save-order');
         });
     });
 

@@ -27,4 +27,16 @@ class Menu extends Model
     {
         return $query->where('category_id',4);
     }
+
+    public function scopeMinuman($query)
+    {
+        return $query->where('category_id',1);
+    }
+
+    public function scopeBubur($query)
+    {
+        return $query->where('category_id',5);
+    }
+
+
 }

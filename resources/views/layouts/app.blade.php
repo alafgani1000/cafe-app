@@ -24,11 +24,12 @@
             }
         }
         </style>
-        <script src="{{ mix('js/app.js') }}"></script>
+
         <!-- Custom styles for this template -->
         <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
         <!-- Custom styles for this template -->
          <!-- Styles -->
+         <script src="{{ mix('js/app.js') }}"></script>
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
         <link rel="stylesheet" href="{{ asset('css/headers.css') }}">
@@ -99,7 +100,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link text-white">
+                                    <a href="{{ route('minuman') }}" class="nav-link text-white">
                                         <i class="fas fa-beer bi d-block mx-auto mb-1"></i>
                                         Minuman
                                     </a>

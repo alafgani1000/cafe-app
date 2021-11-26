@@ -100,4 +100,10 @@ class MenuController extends Controller
         $foods = Menu::makanan()->get();
         return view('menus.list-makanan', compact('foods'));
     }
+
+    public function listMinuman()
+    {
+        $drinks = Menu::minuman()->get();
+        return view('menus.list-minuman', compact('drinks'));
+    }
 }

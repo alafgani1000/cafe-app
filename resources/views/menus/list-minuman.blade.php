@@ -19,21 +19,21 @@
         @endrole
     </div>
     <div class="row isi">
-    @foreach ($foods as $food)
+    @foreach ($drinks as $drink)
         <div class="col-sm-3 padding-menu">
             @php
-                $image = 'storage/'.$food->image_path;
+                $image = 'storage/'.$drink->image_path;
             @endphp
             <div class="card">
                 <div class="card-body" style="margin: 0 !important; padding: 0 !important;">
                     <img width="100%" height="100%" src="{{ url($image) }}" />
                 </div>
                 <div class="card-footer" style="text-align:center">
-                    <span style="font-size: 14px; font-weight: bold">{{ $food->name }}</span><br/>
-                    <span style="font-size: 14px; font-weight: bold">Rp. {{ number_format($food->price) }}</span>
+                    <span style="font-size: 14px; font-weight: bold">{{ $drink->name }}</span><br/>
+                    <span style="font-size: 14px; font-weight: bold">Rp. {{ number_format($drink->price) }}</span>
                     <div class="input-group mb-2 mt-3">
                         <input type="number" class="form-control" class="qty">
-                        <button dataId="{{ $food->id }}" class="btn btn-success btn-cart-add" type="button" id="button-addon2"><i class="fa fa-cart-plus"></i></button>
+                        <button dataId="{{ $drink->id }}" class="btn btn-success btn-cart-add" type="button" id="button-addon2"><i class="fa fa-cart-plus"></i></button>
                     </div>
                 </div>
             </div>
