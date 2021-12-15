@@ -6,6 +6,7 @@ use App\Http\Controllers\CafeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TransactionController;
 
@@ -64,6 +65,14 @@ Route::group(["middleware" => "auth"], function () {
         });
     });
 
+    Route::group(["prefix" => "orrder"], function () {
+        Route::get('/order',[OrderController::class, 'index'])
+            ->name('order.index');
+        Route::get('/order/data',[OrderController::class, 'data'])
+            ->name('order.data');
+        Route::get('/order/{id}/',[OrderController::class, 'detail'])
+            ->name('order.detail');
+    });
 
     Route::group(["prefix" => "employee"], function () {
         Route::get('/',[EmployeeController::class, 'index'])

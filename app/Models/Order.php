@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderDetail;
 use App\Models\OrderTable;
+use App\Models\OrderStatus;
 
 class Order extends Model
 {
@@ -21,5 +22,10 @@ class Order extends Model
     public function table()
     {
         return $this->hasMany(OrderTable::class);
+    }
+
+    public function status()
+    {
+        return $this->hasMany(OrderStatus::class);
     }
 }

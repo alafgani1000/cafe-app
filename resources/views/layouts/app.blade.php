@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link text-white">
+                                    <a href="{{ route('order.index') }}" class="nav-link text-white">
                                     <i class="fas fa-shopping-basket bi d-block mx-auto mb-1"></i>
                                     Orders
                                     </a>
