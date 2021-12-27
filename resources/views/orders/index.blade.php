@@ -31,7 +31,11 @@
                                             @endforeach
                                         </ol>
                                     </td>
-                                    <td><button class="btn btn-primary">Detail</button></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a title="Detail" href="{{ route('order.detail', $item->id) }}" class="btn btn-primary text-white"><i class="fas fa-clipboard-list"></i></a>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

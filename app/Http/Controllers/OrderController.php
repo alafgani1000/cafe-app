@@ -24,8 +24,8 @@ class OrderController extends Controller
 
     public function detail($id)
     {
-        $detail = OrderDetail::where('order_id',$id)->get();
-        return view('orders.detail',compact('detail'));
+        $order = Order::where('id',$id)->first();
+        return view('orders.detail',compact('order'));
     }
 
 }

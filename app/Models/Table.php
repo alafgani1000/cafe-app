@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderTable;
 
 class Table extends Model
 {
@@ -11,4 +12,8 @@ class Table extends Model
 
     protected $fillable = ['nomor_meja','status'];
 
+    public function orderTable()
+    {
+        return $this->hasOne(OrderTable::class);
+    }
 }

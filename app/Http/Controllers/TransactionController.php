@@ -131,7 +131,8 @@ class TransactionController extends Controller
             });
 
             $order = Order::create([
-                'total_price' => $orderMap->sum('total_price')
+                'total_price' => $orderMap->sum('total_price'),
+                'status' => 1
             ]);
 
             foreach($request->room as $item) {

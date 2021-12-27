@@ -70,7 +70,7 @@ Route::group(["middleware" => "auth"], function () {
             ->name('order.index');
         Route::get('/order/data',[OrderController::class, 'data'])
             ->name('order.data');
-        Route::get('/order/{id}/',[OrderController::class, 'detail'])
+        Route::get('/order/{id}/detail',[OrderController::class, 'detail'])
             ->name('order.detail');
     });
 

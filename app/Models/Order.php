@@ -24,8 +24,8 @@ class Order extends Model
         return $this->hasMany(OrderTable::class);
     }
 
-    public function status()
+    public function statusMaster()
     {
-        return $this->hasMany(OrderStatus::class);
+        return $this->hasOne(OrderStatus::class,'id');
     }
 }
