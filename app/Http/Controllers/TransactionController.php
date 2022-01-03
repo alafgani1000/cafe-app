@@ -185,4 +185,31 @@ class TransactionController extends Controller
             ], 422);
         }
     }
+
+    public function cancelOrder(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        if(isset($order->detail)){
+            $order->detail()->delete();
+        }
+
+        if(isset($order->table)){
+            $order->table->each(function($item, $key){
+                $item->table->update([
+                    'status' => 1
+                ]);
+
+                $item->delete();
+            });
+        }
+
+        sleep(2);
+
+        $order->delete();
+
+        return response()->json([
+            'message' => 'Cancel order success'
+        ]);
+    }
 }

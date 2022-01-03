@@ -75,6 +75,8 @@ Route::group(["middleware" => "auth"], function () {
             ->name('order.detail');
         Route::put('/{id}/checked',[OrderController::class, 'checkCook'])
             ->name('order.checked');
+        Route::put('order/{id}/cancel',[TransactionController::class,'cancelOrder'])
+            ->name('cancel.order');
     });
 
     Route::group(["prefix" => "payments"], function () {
@@ -82,8 +84,10 @@ Route::group(["middleware" => "auth"], function () {
             ->name('payment.index');
         Route::get('/data',[PaymentController::class, 'data'])
             ->name('payment.data');
-        Route::get('/{id}/detail',[OrderController::class, 'detail'])
+        Route::get('/{id}/detail',[PaymentController::class, 'detail'])
             ->name('payment.detail');
+        Route::get('/{id}/order',[PaymentController::class, 'orderData'])
+            ->name('payment.order');
     });
 
     Route::group(["prefix" => "employee"], function () {
