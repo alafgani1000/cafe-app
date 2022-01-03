@@ -95,8 +95,7 @@
                 });
             });
 
-            function resetForm()
-            {
+            function resetForm() {
                 $('#bill').val('');
                 $('#pay').val('');
                 $('#change').val('');
