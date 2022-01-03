@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\OrderDetail;
 use App\Models\OrderTable;
 use App\Models\OrderStatus;
+use App\Models\Payment;
 
 class Order extends Model
 {
@@ -27,5 +28,10 @@ class Order extends Model
     public function statusMaster()
     {
         return $this->belongsTo(OrderStatus::class,'status','id');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }

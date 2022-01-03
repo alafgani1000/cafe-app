@@ -28,7 +28,8 @@
                             <div class="row mb-3">
                                 <label for="bill" class="col-sm-3 col-form-label">Bill</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="bill" name="bill">
+                                    <input type="hidden" class="form-control" id="tn" name="tn" required readonly>
+                                    <input type="number" class="form-control" id="bill" name="bill" required readonly>
                                     <label id="billNumberFormat" style="padding-left: 12px;">
 
                                     </label>
@@ -39,7 +40,7 @@
                             <div class="row mb-3">
                                 <label for="pay" class="col-sm-3 col-form-label">Pay</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="pay" name="pay">
+                                    <input type="number" class="form-control" id="pay" name="pay" required>
                                     <label id="payNumberFormat" style="padding-left: 12px;">
 
                                     </label>
@@ -50,7 +51,7 @@
                             <div class="row mb-3">
                                 <label for="change" class="col-sm-3 col-form-label">Change</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="change" name="change">
+                                    <input type="number" class="form-control" id="change" name="change" required>
                                     <label id="changeNumberFormat" style="padding-left: 12px;"">
 
                                     </label>
@@ -70,8 +71,8 @@
         $(function(){
             $('#searchBtn').on('click', function(){
                 resetForm();
-
                 let tnumber = $("#tnumber").val();
+                $('#tn').val(tnumber);
                 let url = '{{ route("payment.detail", ":tnumber") }}';
                 url = url.replace(':tnumber', tnumber);
                 $.ajax({
@@ -111,7 +112,34 @@
             });
 
             $('#paymentBtn').on('click', function(){
+                const bill = $('#bill').val();
+                const pay = $('#pay').val();
+                const change = $('#change').val();
+                let tn = $("#tn").val();
+                let url = '{{ route("pay", ":tn") }}';
+                url = url.replace(':tn', tn);
+                $.ajax({
+                    type: 'PUT',
+                    url: url,
+                    data: {
+                        'bill':bill,
+                        'pay':pay,
+                        'change':change
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                }).done(function(response){
 
+                }).fail(function(response){
+                    let errors = response.responseJSON.errors;
+                    if(errors.pay){
+                        $('#payNumberFormat').text(errors.pay);
+                    }
+                    if(errors.change){
+                        $('#changeNumberFormat').text(errors.change);
+                    }
+                });
             });
 
             $('#pay').keypress(function(event){

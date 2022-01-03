@@ -88,6 +88,8 @@ Route::group(["middleware" => "auth"], function () {
             ->name('payment.detail');
         Route::get('/{id}/order',[PaymentController::class, 'orderData'])
             ->name('payment.order');
+        Route::put('/{id}/pay',[PaymentController::class, 'pay'])
+            ->name('pay');
     });
 
     Route::group(["prefix" => "employee"], function () {
