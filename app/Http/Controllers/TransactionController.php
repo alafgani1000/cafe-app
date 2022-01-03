@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 
 class TransactionController extends Controller
@@ -116,6 +117,21 @@ class TransactionController extends Controller
         ]);
     }
 
+    public function create_tnumber($id)
+    {
+        $jumId = Str::length($id);
+        $code = '00000000';
+        $jumCode = 8;
+        $first = $jumCode -  $jumId;
+        if($jumId < 8) {
+            $firstCode = Str::substr($code, 0, $first);
+            $code = $firstCode.$id;
+        } else {
+            $code = $id;
+        }
+        return $code;
+    }
+
     public function saveOrder(Request $request)
     {
         if(isset($request->room)) {
@@ -133,6 +149,10 @@ class TransactionController extends Controller
             $order = Order::create([
                 'total_price' => $orderMap->sum('total_price'),
                 'status' => 1
+            ]);
+
+            $upDate = Order::where('id',$order->id)->update([
+                'tnumber' => $this->create_tnumber($order->id)
             ]);
 
             foreach($request->room as $item) {

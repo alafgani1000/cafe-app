@@ -146,9 +146,9 @@
                     }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire(
-                        'Deleted!',
-                        'Category data has been deleted.',
-                        'success'
+                            'Deleted!',
+                            'Category data has been deleted.',
+                            'success'
                         )
                     }
                 })

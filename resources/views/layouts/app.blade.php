@@ -129,7 +129,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link text-white">
+                                    <a href="{{ route('payment.index') }}" class="nav-link text-white">
                                     <i class="fas fa-money-bill bi d-block mx-auto mb-1"></i>
                                     Payments
                                     </a>

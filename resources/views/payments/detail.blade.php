@@ -7,14 +7,10 @@
                 <div class="card-body">
                     <div>
                         <div class="col-sm-4 mb-4">
-                            <form id="formCook" method="post" action="{{ route('order.checked', $order->id) }}">
-                                @csrf
-                                @method('PUT')
-                            </form>
                             <div class="btn-group">
                                 <a href="{{ route('order.index') }}" class="btn btn-primary btn-lg"><i class="fas fa-chevron-circle-left me-1"></i>Back</a>
                                 @if($order->status == 1)
-                                    <button form="formCook" type="submit" id="checkCook" actionProcess="{{ route('order.checked', $order->id) }}" class="btn btn-secondary btn-lg"><i class="fas fa-check-circle me-1"></i>Check</button>
+                                    <a href="{{ route('order.index') }}" class="btn btn-secondary btn-lg"><i class="fas fa-check-circle me-1"></i>Check</a>
                                 @endif
                             </div>
                         </div>
@@ -86,66 +82,4 @@
             </div>
         </div>
     </div>
-    <script>
-        $(function() {
-            Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 4000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-
-            $("#formCook").on('submit', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                Swal.fire({
-                    title: 'Is the order ready to be served?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Submit',
-                    preConfirm: () => {
-                        const url = $(this).attr('action');
-                        $.ajax({
-                            type: "PUT",
-                            url: url,
-                            data: {
-
-                            },
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        }).done(function(response){
-
-                        }).fail(function(response){
-                            Toast.fire({
-                                title:'error',
-                                message:'error'
-                            });
-                        });
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: 'Success',
-                            text: "Validation success",
-                            icon: 'success',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                location.reload();
-                            }
-                        });
-
-                    }
-                })
-            });
-        });
-    </script>
 @endsection

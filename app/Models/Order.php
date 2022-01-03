@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_reservation','total_price','description'];
+    protected $fillable = ['id_reservation','total_price','description','status','tnumber'];
 
     public function detail()
     {
@@ -26,6 +26,6 @@ class Order extends Model
 
     public function statusMaster()
     {
-        return $this->hasOne(OrderStatus::class,'id');
+        return $this->belongsTo(OrderStatus::class,'status','id');
     }
 }

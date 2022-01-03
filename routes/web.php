@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TransactionController;
 
@@ -65,13 +66,24 @@ Route::group(["middleware" => "auth"], function () {
         });
     });
 
-    Route::group(["prefix" => "orrder"], function () {
-        Route::get('/order',[OrderController::class, 'index'])
+    Route::group(["prefix" => "order"], function () {
+        Route::get('/',[OrderController::class, 'index'])
             ->name('order.index');
-        Route::get('/order/data',[OrderController::class, 'data'])
+        Route::get('/data',[OrderController::class, 'data'])
             ->name('order.data');
-        Route::get('/order/{id}/detail',[OrderController::class, 'detail'])
+        Route::get('/{id}/detail',[OrderController::class, 'detail'])
             ->name('order.detail');
+        Route::put('/{id}/checked',[OrderController::class, 'checkCook'])
+            ->name('order.checked');
+    });
+
+    Route::group(["prefix" => "payments"], function () {
+        Route::get('/',[PaymentController::class, 'index'])
+            ->name('payment.index');
+        Route::get('/data',[PaymentController::class, 'data'])
+            ->name('payment.data');
+        Route::get('/{id}/detail',[OrderController::class, 'detail'])
+            ->name('payment.detail');
     });
 
     Route::group(["prefix" => "employee"], function () {

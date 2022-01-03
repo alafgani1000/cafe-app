@@ -18,7 +18,7 @@ class OrderController extends Controller
 
     public function data()
     {
-        $orders = Order::whereNull('status')->orderBy('created_at')->get();
+        $orders = Order::where('status',1)->orderBy('created_at')->get();
         return $orders;
     }
 
@@ -26,6 +26,17 @@ class OrderController extends Controller
     {
         $order = Order::where('id',$id)->first();
         return view('orders.detail',compact('order'));
+    }
+
+    public function checkCook($id)
+    {
+        $order = Order::where('id', $id)->update([
+            'status' => 2
+        ]);
+
+        return response()->json([
+            'message' => 'Update success'
+        ]);
     }
 
 }
