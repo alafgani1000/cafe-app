@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-color text-white">
-                    <span class="header-data">Orders</span>
+                    <span class="header-data">Order payment</span>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -112,34 +112,45 @@
             });
 
             $('#paymentBtn').on('click', function(){
-                const bill = $('#bill').val();
-                const pay = $('#pay').val();
-                const change = $('#change').val();
                 let tn = $("#tn").val();
-                let url = '{{ route("pay", ":tn") }}';
-                url = url.replace(':tn', tn);
-                $.ajax({
-                    type: 'PUT',
-                    url: url,
-                    data: {
-                        'bill':bill,
-                        'pay':pay,
-                        'change':change
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                }).done(function(response){
+                if(tn === ''){
+                    alert('error');
+                }else{
+                    const bill = $('#bill').val();
+                    const pay = $('#pay').val();
+                    const change = $('#change').val();
+                    let tn = $("#tn").val();
+                    let url = '{{ route("pay", ":tn") }}';
+                    url = url.replace(':tn', tn);
+                    $.ajax({
+                        type: 'PUT',
+                        url: url,
+                        data: {
+                            'bill':bill,
+                            'pay':pay,
+                            'change':change
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        beforeSend:{
 
-                }).fail(function(response){
-                    let errors = response.responseJSON.errors;
-                    if(errors.pay){
-                        $('#payNumberFormat').text(errors.pay);
-                    }
-                    if(errors.change){
-                        $('#changeNumberFormat').text(errors.change);
-                    }
-                });
+                        }
+                    }).done(function(response){
+                        Swal.fire({
+                            title:'Payment success',
+                            icon:'sucess',
+                        });
+                    }).fail(function(response){
+                        let errors = response.responseJSON.errors;
+                        if(errors.pay){
+                            $('#payNumberFormat').text(errors.pay);
+                        }
+                        if(errors.change){
+                            $('#changeNumberFormat').text(errors.change);
+                        }
+                    });
+                }
             });
 
             $('#pay').keypress(function(event){
