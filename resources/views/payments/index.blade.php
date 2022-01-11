@@ -58,7 +58,7 @@
                                 </div>
 
                             </div>
-                            <div class="row mb-3" style="padding: 10px 10px 10px 10px;">
+                            <div class="row mb-3" style="padding: 10px 10px 10px 10px;" id="tombol">
                                 <button type="button" class="btn btn-primary" id="paymentBtn">Bayar</button>
                             </div>
                         </div>
@@ -81,6 +81,13 @@
                     dataType: 'html'
                 }).done(function(response){
                     $('#dataOrder').html(response);
+                }).fail(function(response){
+                    console.log(response);
+                    Swal.fire({
+                        'title':'Warning',
+                        'text':response.responseText,
+                        'icon':'warning'
+                    });
                 });
 
                 let rupiah = Intl.NumberFormat('en-ID');
@@ -89,10 +96,12 @@
                 $.ajax({
                     type: 'GET',
                     url: url1,
-                    dataType: 'html'
+                    dataType: 'JSON'
                 }).done(function(response){
-                    $('#bill').val(response);
-                    $('#billNumberFormat').text(rupiah.format(response));
+                    $('#bill').val(response.bill);
+                    $('#billNumberFormat').text(rupiah.format(response.bill));
+                    $('#printStruct').remove();
+                    $('#paymentBtn').after('<a target="_blank" href="{{ route('print.struct', '2') }}" class="btn btn-secondary mt-1" id="printStruct">Print struct</a>');
                 });
             });
 
@@ -103,6 +112,7 @@
                 $('#billNumberFormat').text('');
                 $('#payNumberFormat').text('');
                 $('#changeNumberFormat').text('');
+                $("#tn").val('');
             }
 
             $('#pay').on('input', function(){
@@ -133,14 +143,14 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        beforeSend:{
+                        beforeSend: function() {
 
                         }
                     }).done(function(response){
                         Swal.fire({
-                            title:'Payment success',
-                            icon:'sucess',
-                        });
+                            title: 'Payment success',
+                            icon: 'success',
+                        })
                     }).fail(function(response){
                         let errors = response.responseJSON.errors;
                         if(errors.pay){

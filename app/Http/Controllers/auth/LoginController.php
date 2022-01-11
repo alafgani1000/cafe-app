@@ -26,7 +26,12 @@ class LoginController extends Controller
 
         if(Auth::attempt($crendetials)) {
             $request->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::HOME);
+            if(Auth::user()->hasRole('pramuniaga'))
+            {
+                return redirect()->route('makanan');
+            }else{
+                return redirect()->intended(RouteServiceProvider::HOME);
+            }
         }
 
         return back()->withErrors([

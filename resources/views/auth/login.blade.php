@@ -26,31 +26,26 @@
           font-size: 3.5rem;
         }
       }
-    </style>   
+    </style>
   </head>
-  <body class="text-center">
-    <main class="form-signin">
+  <body class="text-center" style="background-color:white;  background-repeat: repeat;">
+    <main class="form-signin" style="border:1px solid silver; padding:20px 20px 20px 20px; box-shadow:5px 5px 5px 5px silver; border-radius:5px 5px 5px 5px; background-image:url({{ asset('assets/bg.jpg') }});">
         <form action="{{ route('login-proccess') }}" method="POST">
         @csrf
-            <img class="mb-4" src="{{ asset('assets/bootstrap-logo.svg') }}" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <img class="mb-4" src="{{ asset('assets/logo1.png') }}" alt="">
+            <h1 class="h2 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">
                 <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">Email address</label>
             </div>
-            
-            <div class="form-floating">
+
+            <div class="form-floating mt-2">
                 <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Password</label>
             </div>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="w-100 btn btn-lg text-white" type="submit" style="background-color:#FB743E;">Sign in</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
         </form>
     </main>

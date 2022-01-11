@@ -10,6 +10,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\user\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +92,16 @@ Route::group(["middleware" => "auth"], function () {
             ->name('payment.order');
         Route::put('/{id}/pay',[PaymentController::class, 'pay'])
             ->name('pay');
+        Route::get('/pay/{id}/struct',[PaymentController::class, 'printStruct'])
+            ->name('print.struct');
+
+    });
+
+    Route::group(["prefix" => "report"], function() {
+        Route::get('/monthly',[ReportController::class, 'viewMonthly'])
+            ->name('report.view.monthly');
+        Route::get('/monhtly/data',[ReportController::class, 'monthlyReport'])
+            ->name('report.view.data');
     });
 
     Route::group(["prefix" => "employee"], function () {
@@ -167,5 +179,23 @@ Route::group(["middleware" => "auth"], function () {
         Route::delete('/{id}/delete',[TableController::class, 'delete'])
             ->name('table.delete');
     });
+
+    Route::group(["prefix" => "user"], function() {
+        Route::get('/',[UserController::class, 'index'])
+            ->name('user.index');
+        Route::get('/data',[UserController::class, 'data'])
+            ->name('user.data');
+        Route::get('/create',[UserController::class, 'create'])
+            ->name('user.create');
+        Route::post('/',[UserController::class, 'store'])
+            ->name('user.store');
+        Route::get('/{id}/edit',[UserController::class, 'edit'])
+            ->name('user.edit');
+        Route::put('/{id}/update',[UserController::class, 'update'])
+            ->name('user.update');
+        Route::delete('/{id}/delete',[UserController::class, 'delete'])
+            ->name('user.delete');
+    });
+
 });
 

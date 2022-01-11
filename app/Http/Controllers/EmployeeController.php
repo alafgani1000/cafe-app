@@ -140,4 +140,12 @@ class EmployeeController extends Controller
         ], 200);
     }
 
+    public function getById($id)
+    {
+        $emp = Employee::find($id);
+        return response()->json([
+            'email' => $emp->email
+        ]);
+    }
+
 }

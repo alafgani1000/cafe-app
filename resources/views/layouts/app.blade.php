@@ -83,16 +83,10 @@
                     <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                            <img src="{{ asset('assets/logo12.png') }}" />
                         </a>
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                             @role('pramuniaga')
-                                <li>
-                                    <a href="{{ route('home') }}" class="nav-link text-white">
-                                        <i class="fas fa-home bi d-block mx-auto mb-1"></i>
-                                        Home
-                                    </a>
-                                </li>
                                 <li>
                                     <a href="{{ route('makanan') }}" class="nav-link text-white">
                                         <i class="fas fa-utensils bi d-block mx-auto mb-1"></i>
@@ -122,9 +116,7 @@
                                             Reports
                                         </a>
                                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
-                                        <li><a class="dropdown-item" href="#" aria-current="page">Categories</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu</a></li>
-                                        <li><a class="dropdown-item" href="#">Profile Cafe</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('report.view.monthly') }}" aria-current="page">Sale</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -158,6 +150,7 @@
                                         <li><a class="dropdown-item" href="{{ route('menu.index') }}">Menu</a></li>
                                         <li><a class="dropdown-item" href="{{ route('table.index') }}">Room or Table</a></li>
                                         <li><a class="dropdown-item" href="{{ route('cafe.index') }}">Profile Cafe</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('user.index') }}">User Config</a></li>
                                         </ul>
                                     </div>
                                 </li>
