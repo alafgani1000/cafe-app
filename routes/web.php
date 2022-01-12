@@ -117,6 +117,8 @@ Route::group(["middleware" => "auth"], function () {
             ->name('employee.update');
         Route::delete('/{id}/delete',[EmployeeController::class, 'delete'])
             ->name('employee.delete');
+        Route::get('/{id}/data',[EmployeeController::class, 'getById'])
+            ->name('employee.byid');
 
     });
 

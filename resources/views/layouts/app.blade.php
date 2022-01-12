@@ -83,7 +83,7 @@
                     <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                            <img src="{{ asset('assets/logo12.png') }}" />
+                            <img src="{{ asset('assets/logo1.png') }}" />
                         </a>
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                             @role('pramuniaga')

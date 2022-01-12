@@ -42,12 +42,13 @@ class UserController extends Controller
         ]);
 
         $store = User::create([
+            'employee_id' => $request->emp_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('employee_id', $request->emp_id)->first();
         $user->assignRole($request->role);
 
         return response()->json([
@@ -58,6 +59,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $users = User::all();
         $roles = Role::all();
         $role = isset($user->roles) ? $user->roles()->first()->name : '';
         return view('users.user-edit', compact('user','roles','role'));
@@ -66,17 +68,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'ename' => 'required',
-            'eusername' => 'required',
-            'eemail' => 'email',
             'erole' => 'required',
-            'ejabatan' => 'required'
         ],[
-            'ename.required' => 'The name field is required',
-            'eusername.required' => 'The username field is required',
-            'erole.required' => 'The role field is required',
-            'eemail.email' => 'The email field format is not same',
-            'ejabatan.requried' => 'The jabatan field is required'
+            'erole.required' => 'The role field is required'
         ]);
 
         $user = User::find($id);
@@ -93,18 +87,7 @@ class UserController extends Controller
                 'epassword.same' => 'The password and re password must match.'
             ]);
             $update = User::where('id',$id)->update([
-                'name' => $request->ename,
-                'username' => $request->eusername,
-                'email' => $request->eemail,
                 'password' => Hash::make($request->epassword),
-                'jabatan' => $request->ejabatan
-            ]);
-        }else{
-            $update = User::where('id',$id)->update([
-                'name' => $request->ename,
-                'username' => $request->eusername,
-                'email' => $request->eemail,
-                'jabatan' => $request->ejabatan
             ]);
         }
 
@@ -117,11 +100,11 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = $user->getRoleNames();
-        $role = $roles->first();
-        $user->removeRole($role);
-
+        if(empty($roles)) {
+            $role = $roles->first();
+            $user->removeRole($role);
+        }
         $user->delete();
-
         return response()->json([
             'message' => 'Delete success'
         ]);

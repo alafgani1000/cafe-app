@@ -144,6 +144,7 @@ class EmployeeController extends Controller
     {
         $emp = Employee::find($id);
         return response()->json([
+            'name' => $emp->name,
             'email' => $emp->email
         ]);
     }

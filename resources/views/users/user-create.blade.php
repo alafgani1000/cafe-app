@@ -73,8 +73,19 @@
         }
 
         $('#name').on('change', function(event){
-            let value = $(this).val();
-            alert(value);
+            let userId = $(this).val();
+            let url = '{{ route("employee.byid", ":userId") }}';
+            url = url.replace(':userId', userId);
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {},
+                dataType: "JSON",
+            }).done(function(res){
+                $('#email').val(res.email);
+            }).fail(function(res){
+
+            });
         })
 
         $('#userCreateForm').on('submit', function(event) {
@@ -82,26 +93,39 @@
             event.stopPropagation();
             resetHelp();
             let url = $(this).attr('action');
-            let data = $(this).serialize();
+            const emp_id = $('#name :selected').val();
+            const name = $('#name :selected').text();
+            const email = $('#email').val();
+            const password = $('#password').val();
+            const re_password = $('#re_password').val();
+            const role = $('#role :selected').val();
             $.ajax({
                 type: "POST",
                 url: url,
-                data: data
+                data: {
+                    emp_id:emp_id,
+                    name:name,
+                    email:email,
+                    password:password,
+                    re_password:re_password,
+                    role:role
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             }).done(function(res) {
                 Toast.fire({
                     icon: 'success',
                     title: 'Success'
                 });
                 dataUser.ajax.reload();
-                $('#modalCreate').modal('hide');
+                userCreateModal.hide();
             }).fail(function(res) {
                 let errors = res.responseJSON.errors;
                 $('#helpName').text(errors.name);
-                $('#helpUsername').text(errors.username);
                 $('#helpEmail').text(errors.email);
                 $('#helpPassword').text(errors.password);
                 $('#helpRepassword').text(errors.re_password);
-                $('#helpJabatan').text(errors.jabatan);
                 $('#helpRole').text(errors.role);
             });
         });

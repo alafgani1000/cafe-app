@@ -3,30 +3,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="userEditForm" type="post" action="{{ route('user.update', $user->id) }}">
                     @csrf
                     <div class="form-group">
                         <label for="ename">Name</label>
-                        <input type="text" class="form-control" name="ename" id="ename" value="{{ $user->name }}">
+                        <input type="text" class="form-control" name="ename" id="ename" value="{{ $user->name }}" readonly>
                         <div class="error-feedback" id="ehelpName">
 
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="eusername">Username</label>
-                        <input type="text" class="form-control" name="eusername" id="eusername" value="{{ $user->username }}">
-                        <div class="error-feedback" id="ehelpUsername">
-
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" name="eemail" id="eemail" value="{{ $user->email }}">
+                        <input type="text" class="form-control" name="eemail" id="eemail" value="{{ $user->email }}" readonly>
                         <div class="error-feedback" id="ehelpEmail">
 
                         </div>
@@ -57,18 +48,11 @@
 
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="jabatan">Position</label>
-                        <input type="text" class="form-control" name="ejabatan" id="ejabatan" value="{{ $user->jabatan }}">
-                        <div class="error-feedback" id="ehelpJabatan">
-
-                        </div>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i>Close</button>
+                    <button class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times mr-1"></i>Close</button>
                     <button type="submit" form="userEditForm" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Update</button>
                 </div>
             </div>

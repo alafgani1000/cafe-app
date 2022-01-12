@@ -34,6 +34,18 @@
 
     <script>
         $(function() {
+            Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
             dataUser = $('#data-user').DataTable({
                 'processing':true,
                 'serverSide':true,
@@ -48,7 +60,7 @@
                         return moment(data).format('DD-MM-YYYY');
                     }},
                     {data:'id', render:function(data, type, meta, row) {
-                        return '<div class="btn-group"><button class="btn btn-warning btn-edit" userid="'+data+'" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-delete" userid="'+data+'" title="Delete"><i class="fas fa-trash"></i></button></div>';
+                        return '<div class="btn-group"><button class="btn btn-warning btn-edit" userid="'+data+'" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit text-white"></i></button><button class="btn btn-danger btn-delete" userid="'+data+'" title="Delete"><i class="fas fa-trash"></i></button></div>';
                     }}
                 ],
             });
