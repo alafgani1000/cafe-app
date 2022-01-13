@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 use App\Models\OrderTable;
 use App\Models\OrderStatus;
 use App\Models\Payment;
+use App\Models\OrderAction;
 
 class Order extends Model
 {
@@ -33,5 +34,10 @@ class Order extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+
+    public function orderActions()
+    {
+        return $this->hasMany(OrderAction::class);
     }
 }
