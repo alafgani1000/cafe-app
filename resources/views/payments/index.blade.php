@@ -101,7 +101,10 @@
                     $('#bill').val(response.bill);
                     $('#billNumberFormat').text(rupiah.format(response.bill));
                     $('#printStruct').remove();
-                    $('#paymentBtn').after('<a target="_blank" href="{{ route('print.struct', '2') }}" class="btn btn-secondary mt-1" id="printStruct">Print struct</a>');
+                    let id = response.order_id;
+                    let urlid = '{{ route("print.struct", ":id") }}';
+                    urlid = urlid.replace(':id', id);
+                    $('#paymentBtn').after('<a target="_blank" href='+urlid+' class="btn btn-secondary mt-1" id="printStruct">Print struct</a>');
                 });
             });
 

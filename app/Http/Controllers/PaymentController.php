@@ -56,8 +56,8 @@ class PaymentController extends Controller
             'change' => 'required|numeric'
         ]);
 
-        $orderCheck = Order::find($id);
-        if($orderCheck == 3)
+        $orderCheck = Order::where('tnumber',$id)->first();
+        if($orderCheck->status == 3)
         {
             return response('Order already payment', 422);
         }else{

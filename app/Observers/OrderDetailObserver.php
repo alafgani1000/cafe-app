@@ -21,7 +21,7 @@ class OrderDetailObserver
             'action' => 'store',
             'data' => json_encode($orderDetail),
             'user_id' => Auth::user()->id,
-            'table_name' => 'order'
+            'table_name' => 'order_detail'
         ]);
     }
 
@@ -38,7 +38,7 @@ class OrderDetailObserver
             'action' => 'update',
             'data' => json_encode($orderDetail),
             'user_id' => Auth::user()->id,
-            'table_name' => 'order'
+            'table_name' => 'order_detail'
         ]);
     }
 
@@ -55,7 +55,7 @@ class OrderDetailObserver
             'action' => 'delete',
             'data' => json_encode($orderDetail),
             'user_id' => Auth::user()->id,
-            'table_name' => 'order'
+            'table_name' => 'order_detail'
         ]);
     }
 
@@ -83,7 +83,7 @@ class OrderDetailObserver
             'action' => 'force delete',
             'data' => json_encode($orderDetail),
             'user_id' => Auth::user()->id,
-            'table_name' => 'order'
+            'table_name' => 'order_detail'
         ]);
     }
 }
