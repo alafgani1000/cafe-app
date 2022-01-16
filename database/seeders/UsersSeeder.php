@@ -30,9 +30,9 @@ class UsersSeeder extends Seeder
         ]);
 
         $pramuniaga = User::create([
-            'name' => 'Pramuniaga',
-            'email' => 'pramuniaga@test.com',
-            'password' => Hash::make('pramuniaga')
+            'name' => 'Pramusaji',
+            'email' => 'pramusaji@test.com',
+            'password' => Hash::make('pramusaji')
         ]);
 
         $developer = User::create([
@@ -40,6 +40,6 @@ class UsersSeeder extends Seeder
             'email' => 'dev@test.com',
             'password' => Hash::make('dev')
         ]);
-        
+
     }
 }

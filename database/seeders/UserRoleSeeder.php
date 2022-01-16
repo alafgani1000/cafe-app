@@ -17,8 +17,8 @@ class UserRoleSeeder extends Seeder
         $admin = User::where('email','admin@test.com')->first();
         $admin->assignRole('admin');
 
-        $pramuniaga = User::where('email','pramuniaga@test.com')->first();
-        $pramuniaga->assignRole('pramuniaga');
+        $pramuniaga = User::where('email','pramusaji@test.com')->first();
+        $pramuniaga->assignRole('pramusaji');
 
         $payment = User::where('email','payment@test.com')->first();
         $payment->assignRole('payment');
