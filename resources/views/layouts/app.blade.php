@@ -86,7 +86,7 @@
                             <img src="{{ asset('assets/logo1.png') }}" />
                         </a>
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-                            @role('pramusaji')
+                            @role('pramusaji|pramuniaga')
                                 <li>
                                     <a href="{{ route('makanan') }}" class="nav-link text-white">
                                         <i class="fas fa-utensils bi d-block mx-auto mb-1"></i>
