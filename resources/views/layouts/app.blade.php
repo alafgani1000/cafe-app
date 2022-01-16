@@ -101,6 +101,21 @@
                                 </li>
                             @endrole
 
+                            @role('payment')
+                                <li>
+                                    <a href="{{ route('payment.index') }}" class="nav-link text-white">
+                                    <i class="fas fa-money-bill bi d-block mx-auto mb-1"></i>
+                                    Payments
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('order.index') }}" class="nav-link text-white">
+                                    <i class="fas fa-shopping-basket bi d-block mx-auto mb-1"></i>
+                                    Orders
+                                    </a>
+                                </li>
+                            @endrole
+
                             @role('admin')
                                 <li>
                                     <a href="#" class="nav-link text-white">

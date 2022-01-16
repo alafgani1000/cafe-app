@@ -29,7 +29,13 @@ class LoginController extends Controller
             if(Auth::user()->hasRole('pramuniaga'))
             {
                 return redirect()->route('makanan');
-            }else{
+            }
+            elseif(Auth::user()->hasRole('payment'))
+            {
+                return redirect()->route('payment');
+            }
+            else
+            {
                 return redirect()->intended(RouteServiceProvider::HOME);
             }
         }
