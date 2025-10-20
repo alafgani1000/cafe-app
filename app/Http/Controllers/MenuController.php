@@ -36,7 +36,7 @@ class MenuController extends Controller
         $ext = $request->file('image')->extension();
         $name = uniqid();
 
-        $imageName = $name.'.'.$ext;
+        $imageName = $name . '.' . $ext;
         $path = $request->file('image')->storeAs('public', $imageName);
         $create = Menu::create([
             'category_id' => $request->category,
@@ -58,7 +58,7 @@ class MenuController extends Controller
     {
         $menu = Menu::find($id);
         $categories = Category::all();
-        return view('menus.modal-update', compact('menu','categories'));
+        return view('menus.modal-update', compact('menu', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -72,14 +72,34 @@ class MenuController extends Controller
             'ediscount' => 'required'
         ]);
 
-        $update = Menu::where('id',$id)->update([
-            'category_id' => $request->ecategory,
-            'name' => $request->ename,
-            'status' => $request->estatus,
-            'price' => $request->eprice,
-            'price_initial' => $request->epriceInitial,
-            'discount' => $request->ediscount
-        ]);
+        if ($request->file('eimage') != null) {
+            $oriName = $request->file('eimage')->getClientOriginalName();
+            $ext = $request->file('eimage')->extension();
+            $name = uniqid();
+
+            $imageName = $name . '.' . $ext;
+            $path = $request->file('eimage')->storeAs('public', $imageName);
+
+            $update = Menu::where('id', $id)->update([
+                'category_id' => $request->ecategory,
+                'name' => $request->ename,
+                'status' => $request->estatus,
+                'price' => $request->eprice,
+                'price_initial' => $request->epriceInitial,
+                'discount' => $request->ediscount,
+                'image' => $oriName,
+                'image_path' => $imageName
+            ]);
+        } else {
+            $update = Menu::where('id', $id)->update([
+                'category_id' => $request->ecategory,
+                'name' => $request->ename,
+                'status' => $request->estatus,
+                'price' => $request->eprice,
+                'price_initial' => $request->epriceInitial,
+                'discount' => $request->ediscount,
+            ]);
+        }
 
         return response()->json([
             'message' => 'success'
@@ -95,15 +115,15 @@ class MenuController extends Controller
         ]);
     }
 
-    public function listMakanan()
+    public function listMenu()
     {
-        $foods = Menu::makanan()->get();
-        return view('menus.list-makanan', compact('foods'));
+        $foods = Menu::with('category')->get();
+        return view('menus.list-menu', compact('foods'));
     }
 
-    public function listMinuman()
+    public function listCategory($id)
     {
-        $drinks = Menu::minuman()->get();
-        return view('menus.list-minuman', compact('drinks'));
+        $menus = Menu::where('category_id', $id)->get();
+        return view('menus.list-category', compact('menus'));
     }
 }

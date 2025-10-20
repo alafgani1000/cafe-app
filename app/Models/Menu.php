@@ -11,7 +11,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id','name','status','price','price_initial','discount','image','image_path'];
+    protected $fillable = ['category_id', 'name', 'status', 'price', 'price_initial', 'discount', 'image', 'image_path'];
 
     public function category()
     {
@@ -20,23 +20,6 @@ class Menu extends Model
 
     public function status()
     {
-        return $this->belongsTo(Status::class,'status');
+        return $this->belongsTo(Status::class, 'status');
     }
-
-    public function scopeMakanan($query)
-    {
-        return $query->where('category_id',4);
-    }
-
-    public function scopeMinuman($query)
-    {
-        return $query->where('category_id',1);
-    }
-
-    public function scopeBubur($query)
-    {
-        return $query->where('category_id',5);
-    }
-
-
 }

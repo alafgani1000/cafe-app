@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-menu-create" tabindex="-1" aria-labelledby="modalMenuCreate">
+<div class="modal fade" id="modal-menu-create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalMenuCreate">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -23,15 +23,21 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="text" class="form-control" name="price" id="price" aria-describedby="helpPrice" >
-                        <div id="helpPrice" class="help-validate">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="priceInitial" class="form-label">Price Initial</label>
+                        <label for="priceInitial" class="form-label">Price</label>
                         <input type="text" class="form-control" name="priceInitial" id="priceInitial" aria-describedby="helpPriceInitial" >
                         <div id="helpPriceInitial" class="help-validate">
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <label for="discount" class="form-label">Discount (%)</label>
+                        <input type="text" class="form-control" name="discount" id="discount">
+                        <div id="helpDiscount" class="help-validate">
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <label for="price" class="form-label">Price Actual</label>
+                        <input type="text" class="form-control" name="price" id="price" aria-describedby="helpPrice" readonly >
+                        <div id="helpPrice" class="help-validate">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -41,12 +47,6 @@
                             <option value="2">In Actice</option>
                         </select>
                         <div id="helpStatus" class="help-validate">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="discount" class="form-label">Discount</label>
-                        <input type="text" class="form-control" name="discount" id="discount">
-                        <div id="helpDiscount" class="help-validate">
                         </div>
                     </div>
                     <div class="col-md-6">

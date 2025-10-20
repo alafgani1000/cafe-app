@@ -26,7 +26,7 @@
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         @role('pramusaji')
-                            <a href="{{ route('makanan') }}" class="text-sm text-gray-700 btn btn-primary">Home</a>
+                            <a href="{{ route('list-menu') }}" class="text-sm text-gray-700 btn btn-primary">Home</a>
                         @endrole
                         @role('admin')
                             <a href="{{ route('dashboard') }}" class="text-sm text-gray-700 btn btn-primary">Home</a>

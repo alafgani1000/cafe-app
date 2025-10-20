@@ -23,15 +23,21 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="eprice" class="form-label">Price</label>
-                        <input type="text" class="form-control" name="eprice" id="eprice" value="{{ $menu->price }}">
-                        <div id="helpEprice" class="help-validate">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
                         <label for="epriceInitial" class="form-label">Price Initial</label>
                         <input type="text" class="form-control" name="epriceInitial" id="epriceInitial" value="{{ $menu->price_initial }}">
                         <div id="helpEpriceInitial" class="help-validate">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ediscount" class="form-label">Discount</label>
+                        <input type="text" class="form-control" name="ediscount" id="ediscount" value="{{ $menu->discount }}">
+                        <div id="helpEdiscount" class="help-validate">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="eprice" class="form-label">Price</label>
+                        <input type="text" class="form-control" name="eprice" id="eprice" value="{{ $menu->price }}" readonly>
+                        <div id="helpEprice" class="help-validate">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -43,12 +49,13 @@
                         <div id="helpEstatus" class="help-validate">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="ediscount" class="form-label">Discount</label>
-                        <input type="text" class="form-control" name="ediscount" id="ediscount" value="{{ $menu->discount }}">
-                        <div id="helpEdiscount" class="help-validate">
+                     <div class="col-md-6">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" class="form-control" name="eimage" id="eimage">
+                        <div id="helpImage" class="help-validate">
                         </div>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -61,13 +68,21 @@
 <script>
     var menuUpdateModal = new bootstrap.Modal(document.getElementById('modal-menu-edit'), {});
 
+      $('#ediscount').on('change', function (event) {
+            let discount = event.target.value;
+            let price = parseFloat($('#epriceInitial').val());
+            let priceActual = price - (price * discount / 100);
+            $('#eprice').val(priceActual);
+        })
+
+
     $('#menuUpdate').on('submit', function (event) {
         event.preventDefault();
         event.stopPropagation();
         let url = $(this).attr('action');
         let data = $(this).serialize();
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: url,
             data: data
         }).done(function(res){

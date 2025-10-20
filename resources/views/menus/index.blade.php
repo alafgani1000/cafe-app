@@ -44,8 +44,7 @@
         $(function(){
             menuCreateModal = new bootstrap.Modal(document.getElementById('modal-menu-create'),{});
 
-            function resetForm()
-            {
+            function resetForm() {
                 $('#name').val('');
                 $('#price').val('');
                 $('#priceInitial').val('');
@@ -68,6 +67,13 @@
                 menuCreateModal.show();
                 resetForm();
             });
+
+            $('#discount').on('change', function (event) {
+                let discount = event.target.value;
+                let price = parseFloat($('#priceInitial').val());
+                let priceActual = price - (price * discount / 100);
+                $('#price').val(priceActual);
+            })
 
             dataMenu = $('#dataMenu').DataTable({
                 'processing':true,

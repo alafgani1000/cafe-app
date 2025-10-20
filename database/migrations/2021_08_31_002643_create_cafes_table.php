@@ -50,7 +50,7 @@ class CreateCafesTable extends Migration
             $table->id();
             $table->integer('category_id');
             $table->string('name');
-            $table->integer('status',1);
+            $table->integer('status');
             $table->integer('price');
             $table->string('price_initial');
             $table->integer('discount');

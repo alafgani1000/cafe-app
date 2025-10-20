@@ -83,22 +83,22 @@
                     <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                            <img src="{{ asset('assets/logo1.png') }}" />
+                            {{-- <img src="{{ asset('assets/logo1.png') }}" /> --}}
+                            Caffe App
                         </a>
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                             @role('pramusaji|pramuniaga')
+
                                 <li>
-                                    <a href="{{ route('makanan') }}" class="nav-link text-white">
-                                        <i class="fas fa-utensils bi d-block mx-auto mb-1"></i>
-                                        Makanan
+                                    <a href="{{ route('list-menu') }}" class="nav-link text-white">
+                                        Home
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="{{ route('minuman') }}" class="nav-link text-white">
-                                        <i class="fas fa-beer bi d-block mx-auto mb-1"></i>
-                                        Minuman
+                                @foreach ($categories as $category )
+                                     <a href="{{ route('menus', [$category->id, $category->name]) }}" class="nav-link text-white">
+                                        {{ $category->name }}
                                     </a>
-                                </li>
+                                @endforeach
                             @endrole
 
                             @role('payment')
@@ -119,15 +119,12 @@
                             @role('admin')
                                 <li>
                                     <a href="#" class="nav-link text-white">
-                                    <i class="fas fa-tachometer-alt bi d-block mx-auto mb-1"></i>
                                     Dashboard
                                     </a>
                                 </li>
                                 <li>
                                     <div class="dropdown">
                                         <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                        <i class="fas fa-file-alt bi d-block mx-auto mb-1"></i>
                                             Reports
                                         </a>
                                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
@@ -137,27 +134,22 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('payment.index') }}" class="nav-link text-white">
-                                    <i class="fas fa-money-bill bi d-block mx-auto mb-1"></i>
-                                    Payments
+                                        Payments
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('order.index') }}" class="nav-link text-white">
-                                    <i class="fas fa-shopping-basket bi d-block mx-auto mb-1"></i>
-                                    Orders
+                                        Orders
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('employee.index') }}" class="nav-link text-white">
-                                    <i class="fas fa-users bi d-block mx-auto mb-1"></i>
-                                    Employees
+                                        Employees
                                     </a>
                                 </li>
                                 <li>
                                     <div class="dropdown">
                                         <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
-
-                                        <i class="fab fa-elementor bi d-block mx-auto mb-1"></i>
                                             Master Data
                                         </a>
                                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">
@@ -174,7 +166,6 @@
                                 <div class="dropdown">
                                     <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownNavLink" data-bs-toggle="dropdown" aria-expanded="false">
 
-                                    <i class="fas fa-user-tie bi d-block mx-auto mb-1"></i>
                                         {{ Str::ucfirst(Auth::user()->name) }}
                                     </a>
                                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownNavLink">

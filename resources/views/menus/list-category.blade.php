@@ -6,7 +6,7 @@
     @endphp
 
     <div class="row isi">
-        @role('pramuniaga')
+        @role('pramuniaga|pramusaji')
             <div class="col" style="margin-top:10px;">
                 <a href="{{ route('index-order') }}" class="btn btn-light position-relative float-end" style="box-shadow:1px 2px 3px 1px silver;" id="cartItem">
                     <i class="fas fa-shopping-cart"></i>
@@ -19,7 +19,7 @@
         @endrole
     </div>
     <div class="row isi">
-    @foreach ($foods as $food)
+    @foreach ($menus as $food)
         <div class="col-sm-3 padding-menu">
             @php
                 $image = 'storage/'.$food->image_path;
